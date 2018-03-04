@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tweet"
+        android:icon="@drawable/ic_twitter_newtweet"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mtTweet"
+        android:icon="@drawable/ic_twitter_newmessage"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_person_white_24dp"
+        android:onClick="onProfileV"
+        android:title="Item"
+        app:showAsAction="ifRoom" />
+</menu>

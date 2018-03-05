@@ -25,8 +25,8 @@ public class UserPhotoFragment extends PhotoFragment {
 
     private String screen_name;
 
-    public static UserTweetFragment newInstance(String screenname) {
-        UserTweetFragment fragment = new UserTweetFragment();
+    public static UserPhotoFragment newInstance(String screenname) {
+        UserPhotoFragment fragment = new UserPhotoFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(SCREEN_NAME,screenname);
         fragment.setArguments(bundle);
@@ -37,7 +37,7 @@ public class UserPhotoFragment extends PhotoFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
-//        screen_name = getArguments().getString(SCREEN_NAME);
+        screen_name = getArguments().getString(SCREEN_NAME);
         populateUserTimeline();
 
     }

@@ -46,71 +46,22 @@ public class ProfileActivity extends AppCompatActivity {
     TextView following;
     TextView idfolowers;
     TextView idscren_name;
+    String scren_name;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
-
-        tabLayout.addTab(tabLayout.newTab().setText("TWEETS"));
-        tabLayout.addTab(tabLayout.newTab().setText("PHOTOS"));
-        tabLayout.addTab(tabLayout.newTab().setText("FAVORITES"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
-
-        profilePageAdapter = new ProfilePageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-
-        viewPager.setAdapter(profilePageAdapter);
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-
-
-
-     //   ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_IMAGE);
-        supportPostponeEnterTransition();
-
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     //    String itemTitle = getIntent().getStringExtra(EXTRA_TITLE);
-
-
     //    final ImageView image = (ImageView) findViewById(R.id.image);
          title = (TextView) findViewById(R.id.title);
         idscren_name = (TextView) findViewById(R.id.idscren_name);
-
-
         idfolowers = (TextView) findViewById(R.id.idfolowers);
-
-
         following = (TextView) findViewById(R.id.following);
-
-
         im_profil=(ImageView) findViewById(R.id.imProfile);
         im_profile_user=(ImageView) findViewById(R.id.im_profile_user);
         TwitterClient client = TwitterApp.getRestClient();
-
         Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         if(tweet!=null){
+            scren_name=tweet.getScreenName().toString();
             Log.d("DEBUG", "user: " + tweet.getScreenName().toString());
             title.setText(tweet.getName().toString());
           idfolowers.setText(""+tweet.getFriends_count());
@@ -144,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
                         idfolowers.setText(response.getString("friends_count").toString() + " Following");
                         following.setText(response.getString("followers_count").toString() + " Followers");
                         idscren_name.setText(String.format(Locale.US, "@%s", response.getString("screen_name")));
+                        scren_name=  response.getString("screen_name");
                         Glide.with(getContext())
                                 .load(response.getString("profile_background_image_url"))
                                 //   .override(100, 100)
@@ -165,12 +117,53 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
             });
+
         }
 //       ("Fevrun");
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle("Fevrun");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
+
+        tabLayout.addTab(tabLayout.newTab().setText("TWEETS"));
+        tabLayout.addTab(tabLayout.newTab().setText("PHOTOS"));
+        tabLayout.addTab(tabLayout.newTab().setText("FAVORITES"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+
+        profilePageAdapter = new ProfilePageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),scren_name);
+
+        viewPager.setAdapter(profilePageAdapter);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+
+        //   ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_IMAGE);
+        supportPostponeEnterTransition();
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 

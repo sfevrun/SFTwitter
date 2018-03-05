@@ -38,7 +38,8 @@ public class UserTweetFragment extends TemelineFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
-//        screen_name = getArguments().getString(SCREEN_NAME);
+       screen_name = getArguments().getString(SCREEN_NAME);
+        Toast.makeText(getActivity(),"Li vide :"+ screen_name,Toast.LENGTH_LONG).show();
         populateUserTimeline();
 
     }

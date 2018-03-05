@@ -16,9 +16,10 @@ public class ProfilePageAdapter  extends FragmentStatePagerAdapter {
 
     int mNumOfTabs;
     String screen_name;
-    public ProfilePageAdapter(FragmentManager fm, int NumOfTabs) {
+    public ProfilePageAdapter(FragmentManager fm, int NumOfTabs,String _screan_name) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        this.screen_name=_screan_name;
     }
 
     @Override
@@ -26,10 +27,10 @@ public class ProfilePageAdapter  extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-               UserTweetFragment tab1 = new UserTweetFragment();// UserTweetFragment();
+               UserTweetFragment tab1 = UserTweetFragment.newInstance(this.screen_name);// UserTweetFragment();
                 return tab1;
             case 1:
-                UserPhotoFragment tab2 = new UserPhotoFragment();
+                UserPhotoFragment tab2 = UserPhotoFragment.newInstance(this.screen_name);
                 return tab2;
             case 2:
                 UserFavoriteFragment tab3 = new UserFavoriteFragment();

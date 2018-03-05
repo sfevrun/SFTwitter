@@ -19,6 +19,33 @@ public class ViewHolderNoImage extends RecyclerView.ViewHolder{
   //  TextView tvScreen_name;
     TextView tvTime;
 
+    TextView  reply_count_text;
+    TextView  retweet_count_text;
+    TextView  like_count_text;
+
+    public TextView getReply_count_text() {
+        return reply_count_text;
+    }
+
+    public void setReply_count_text(TextView reply_count_text) {
+        this.reply_count_text = reply_count_text;
+    }
+
+    public TextView getRetweet_count_text() {
+        return retweet_count_text;
+    }
+
+    public void setRetweet_count_text(TextView retweet_count_text) {
+        this.retweet_count_text = retweet_count_text;
+    }
+
+    public TextView getLike_count_text() {
+        return like_count_text;
+    }
+
+    public void setLike_count_text(TextView like_count_text) {
+        this.like_count_text = like_count_text;
+    }
 
     public TextView getTvTime() {
         return tvTime;
@@ -60,6 +87,11 @@ public class ViewHolderNoImage extends RecyclerView.ViewHolder{
 
         tvTime=(TextView) view.findViewById(R.id.tvTime);
      //   tvScreen_name=(TextView) view.findViewById(R.id.tvScreen_name);
+
+        reply_count_text=(TextView) view.findViewById(R.id.reply_count_text);
+        retweet_count_text=(TextView) view.findViewById(R.id.retweet_count_text);
+
+        like_count_text=(TextView) view.findViewById(R.id.like_count_text);
 
 
     }

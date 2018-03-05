@@ -394,7 +394,7 @@ tweet.type=0;
     }
 
 
-    public static List<Tweet> recentTweet() {
-        return new Select().from(Tweet.class).orderBy(Tweet_Table.id, false).limit(300).queryList();
-    }
+ //   public static List<Tweet> recentTweet() {
+   //     return new Select().from(Tweet.class).orderBy(Tweet_Table.id, false).limit(300).queryList();
+  //  }
 }

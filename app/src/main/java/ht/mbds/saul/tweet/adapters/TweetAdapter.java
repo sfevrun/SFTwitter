@@ -97,6 +97,10 @@ public class TweetAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolderImage.getTvTitle().setText(tweet.getName()+'\n'+String.format(Locale.US, "@%s", tweet.getScreenName()));
                 viewHolderImage.getTvBody().setText(tweet.getBody());
 
+                viewHolderImage.getLike_count_text().setText(""+tweet.getFavorite_count());
+                viewHolderImage.getReply_count_text().setText(""+tweet.getReply_count());
+                viewHolderImage.getRetweet_count_text().setText(""+tweet.getRetweet_count());
+
            //     viewHolderImage.getTvScreen_name().setText(String.format(Locale.US, "@%s", tweet.getScreenName()));
                 viewHolderImage.getTvTime().setText(Utils.getRelativeTimeAgo(tweet.getCreatedAt()));
 
@@ -133,6 +137,9 @@ public class TweetAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolderVideo.getTvTitle().setText(tweet.getName()+'\n'+String.format(Locale.US, "@%s", tweet.getScreenName()));
                 viewHolderVideo.getTvBody().setText(tweet.getBody());
 
+                viewHolderVideo.getLike_count_text().setText(""+tweet.getFavorite_count());
+                viewHolderVideo.getReply_count_text().setText(""+tweet.getReply_count());
+                viewHolderVideo.getRetweet_count_text().setText(""+tweet.getRetweet_count());
                 //     viewHolderImage.getTvScreen_name().setText(String.format(Locale.US, "@%s", tweet.getScreenName()));
                 viewHolderVideo.getTvTime().setText(Utils.getRelativeTimeAgo(tweet.getCreatedAt()));
 
@@ -180,6 +187,10 @@ public class TweetAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder
 
             //    viewHolderNoImage.getTvScreen_name().setText(String.format(Locale.US, "@%s", tweet.getScreenName()));
                 viewHolderNoImage.getTvTime().setText(Utils.getRelativeTimeAgo(tweet.getCreatedAt()));
+
+                viewHolderNoImage.getLike_count_text().setText(""+tweet.getFavorite_count());
+                viewHolderNoImage.getReply_count_text().setText(""+tweet.getReply_count());
+                viewHolderNoImage.getRetweet_count_text().setText(""+tweet.getRetweet_count());
 
 
                 ImageView noImProfile=viewHolderNoImage.imProfile;

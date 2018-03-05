@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 //import com.squareup.picasso.Picasso;
 //import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,12 +43,42 @@ public class TweetAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder
     List<Tweet> tweets;
     Context context;
     ImageView imProfile;
+
+    ProfileClickedListener mListener;
+    ImageView profile_image;
+    TextView name;
+    TextView body;
+    TextView post_time;
+    TextView screen_name;
+
+    TextView reply_count;
+    TextView retweet_count;
+    TextView fav_count;
+
+    ImageView reply_tweet;
+    ImageView retweet;
+    ImageView fav_tweet;
     private final int WITH_IMAGE = 0,WITH_VIDEO=1, WITHOUT_IMAGE = 2;
 
 
-    public TweetAdapter(Context context, List<Tweet> tweets) {
+
+    public interface ProfileClickedListener{
+        public void onProfileClicked(Tweet tweet);
+        public void onRetweetClicked(Tweet tweet, int position);
+        public void onReplyClicked(Tweet tweet);
+        public void onFavClicked(Tweet tweet, int position);
+        public void onUserNameClicked(String userName);
+
+    }
+
+
+
+
+
+    public TweetAdapter(Context context, List<Tweet> tweets, ProfileClickedListener listener) {
         this.context = context;
         this.tweets = tweets;
+        mListener = listener;
     }
     public TweetAdapter( List<Tweet> tweets) {
 
@@ -227,6 +258,10 @@ public class TweetAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     }
+
+
+
+
     @Override
     public int getItemCount() {
         return tweets.size();

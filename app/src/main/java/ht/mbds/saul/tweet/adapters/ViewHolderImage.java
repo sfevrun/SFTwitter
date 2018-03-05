@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ht.mbds.saul.tweet.R;
+import ht.mbds.saul.tweet.models.Tweet;
 
 /**
  * Created by SAUL on 2/23/2018.
@@ -17,9 +18,12 @@ public class ViewHolderImage extends RecyclerView.ViewHolder {
     TextView tvTitle;
     ImageView imProfile;
     ImageView imTweet;
-    TextView  reply_count_text;
-    TextView  retweet_count_text;
-    TextView  like_count_text;
+    TextView reply_count_text;
+    TextView retweet_count_text;
+    TextView like_count_text;
+
+    Tweet tweet;
+    TweetAdapter.ProfileClickedListener mListener;
 
     public TextView getReply_count_text() {
         return reply_count_text;
@@ -91,18 +95,57 @@ public class ViewHolderImage extends RecyclerView.ViewHolder {
 
     public ViewHolderImage(View view) {
         super(view);
-        imProfile=(ImageView) view.findViewById(R.id.imProfile);
-        imTweet=(ImageView) view.findViewById(R.id.imTweet);
-        tvTitle=(TextView) view.findViewById(R.id.tvTitle);
-        tvBody=(TextView) view.findViewById(R.id.tvBody);
+        imProfile = (ImageView) view.findViewById(R.id.imProfile);
+        imTweet = (ImageView) view.findViewById(R.id.imTweet);
+        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        tvBody = (TextView) view.findViewById(R.id.tvBody);
 
-        tvTime=(TextView) view.findViewById(R.id.tvTime);
+        tvTime = (TextView) view.findViewById(R.id.tvTime);
 
-        reply_count_text=(TextView) view.findViewById(R.id.reply_count_text);
-        retweet_count_text=(TextView) view.findViewById(R.id.retweet_count_text);
+        reply_count_text = (TextView) view.findViewById(R.id.reply_count_text);
+        retweet_count_text = (TextView) view.findViewById(R.id.retweet_count_text);
 
-        like_count_text=(TextView) view.findViewById(R.id.like_count_text);
-      //  tvScreen_name=(TextView) view.findViewById(R.id.tvScreen_name);
+        like_count_text = (TextView) view.findViewById(R.id.like_count_text);
+        //  tvScreen_name=(TextView) view.findViewById(R.id.tvScreen_name);
 
-    }
-}
+
+        imProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null)
+                    mListener.onProfileClicked(tweet);
+            }
+        });
+
+        retweet_count_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null)
+                    mListener.onRetweetClicked(tweet, getAdapterPosition());
+            }
+        });
+
+        reply_count_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null)
+                    mListener.onReplyClicked(tweet);
+            }
+
+        });
+
+
+        like_count_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null)
+                    mListener.onFavClicked(tweet, getAdapterPosition());
+            }
+
+        });
+    }}
+
+
+
+
+

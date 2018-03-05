@@ -31,10 +31,7 @@ public class Tweet extends BaseModel implements Parcelable {
     @PrimaryKey
     @Column
     private int id;
-    //@Column
-    //@ForeignKey(saveForeignKeyModel = false)
-    //private User user;
-    @Column
+      @Column
     private String name;
     @Column
     private int idUser;
@@ -48,26 +45,52 @@ public class Tweet extends BaseModel implements Parcelable {
     private String imTweet;
     @Column
     private String body;
-
     @Column
     private int reply_count;
-
     @Column
     private int retweet_count;
-
     @Column
     private  int favorite_count;
-
     @Column
     private  boolean retweeted;
-
     @Column
     private boolean favorited;
+
 @Column
 private int type;
 @Column
 private String tweet_media_type;
 
+    @Column
+    private int friends_count;
+    @Column
+    private  int  followers_count;
+    @Column
+    private String profile_background_image_url;
+
+    public int getFriends_count() {
+        return friends_count;
+    }
+
+    public void setFriends_count(int friends_count) {
+        this.friends_count = friends_count;
+    }
+
+    public int getFollowers_count() {
+        return followers_count;
+    }
+
+    public void setFollowers_count(int followers_count) {
+        this.followers_count = followers_count;
+    }
+
+    public String getProfile_background_image_url() {
+        return profile_background_image_url;
+    }
+
+    public void setProfile_background_image_url(String profile_background_image_url) {
+        this.profile_background_image_url = profile_background_image_url;
+    }
 
     public String getTweet_media_type() {
         return tweet_media_type;
@@ -208,6 +231,13 @@ private String tweet_media_type;
         this.name=jsonObject.getJSONObject("user").getString("name");
         this.screenName=jsonObject.getJSONObject("user").getString("screen_name");
         this.profileImageUrl=jsonObject.getJSONObject("user").getString("profile_image_url");
+
+
+        this.friends_count=jsonObject.getJSONObject("user").getInt("friends_count");
+        this.followers_count=jsonObject.getJSONObject("user").getInt("followers_count");
+        this.profile_background_image_url=jsonObject.getJSONObject("user").getString("profile_background_image_url");
+
+
        this.type=0;
 
         if(jsonObject.has("reply_count")) {
@@ -287,7 +317,12 @@ private String tweet_media_type;
         tweet.name=json.getJSONObject("user").getString("name");
         tweet.screenName=json.getJSONObject("user").getString("screen_name");
         tweet.profileImageUrl=json.getJSONObject("user").getString("profile_image_url");
-tweet.type=0;
+
+        tweet.friends_count=json.getJSONObject("user").getInt("friends_count");
+        tweet.followers_count=json.getJSONObject("user").getInt("followers_count");
+        tweet.profile_background_image_url=json.getJSONObject("user").getString("profile_background_image_url");
+
+        tweet.type=0;
         if(json.has("reply_count")) {
             tweet.reply_count = json.getInt("reply_count");
         }
@@ -309,7 +344,7 @@ tweet.type=0;
         tweet.retweeted = json.getBoolean("retweeted");
         tweet.favorited = json.getBoolean("favorited");
 
-       tweet.save();
+//       tweet.save();
         return tweet;
     }
 
@@ -321,7 +356,7 @@ tweet.type=0;
             try{
                 tweet=new Tweet(array.getJSONObject(i));
                 results.add(tweet);
-                tweet.save();
+//                tweet.save();
             }catch (JSONException e){
                 e.printStackTrace();
             }
@@ -337,22 +372,31 @@ tweet.type=0;
     }
 
     public Tweet(Parcel in) {
-        this.createdAt = in.readString();
         this.id = in.readInt();
-        this.body = in.readString();
-         this.reply_count = in.readInt();
-        this.retweet_count = in.readInt();
-        this.favorite_count = in.readInt();
         this.name=in.readString();
+
+
+
+
         this.idUser=in.readInt();
         this.screenName=in.readString();
         this.profileImageUrl=in.readString();
+        this.createdAt = in.readString();
         this.imTweet=in.readString();
-        this.type=in.readInt();
+        this.body = in.readString();
+        this.reply_count = in.readInt();
+        this.retweet_count = in.readInt();
+        this.favorite_count = in.readInt();
         this.retweeted = in.readByte() != 0;
         this.favorited = in.readByte() != 0;
+        this.type=in.readInt();
+
 
         this.tweet_media_type=in.readString();
+
+        this.friends_count = in.readInt();
+        this.followers_count = in.readInt();
+        this.profile_background_image_url = in.readString();
 
 
 
@@ -372,24 +416,28 @@ tweet.type=0;
     };
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(createdAt);
+
         parcel.writeInt(id);
-        parcel.writeString(body);
-
-        parcel.writeInt(reply_count);
-        parcel.writeInt(retweet_count);
-        parcel.writeInt(favorite_count);
-        parcel.writeByte((byte) (retweeted ? 1 : 0));
-        parcel.writeByte((byte) (favorited ? 1 : 0));
-
 
         parcel.writeString(name);
         parcel.writeInt(idUser);
         parcel.writeString(screenName);
         parcel.writeString(profileImageUrl);
+        parcel.writeString(createdAt);
         parcel.writeString(imTweet);
+        parcel.writeString(body);
+        parcel.writeInt(reply_count);
+        parcel.writeInt(retweet_count);
+        parcel.writeInt(favorite_count);
+        parcel.writeByte((byte) (retweeted ? 1 : 0));
+        parcel.writeByte((byte) (favorited ? 1 : 0));
         parcel.writeInt(type);
         parcel.writeString(tweet_media_type);
+
+        parcel.writeInt(friends_count);
+        parcel.writeInt(followers_count);
+        parcel.writeString(profile_background_image_url);
+
 
     }
 
